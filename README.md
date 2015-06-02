@@ -1,5 +1,7 @@
 # RailsStackview
 
+IN PROGRESS UNDER DEVELOPMENT NOT USABLE YET
+
 Tools for integrating the Harvard Innovation Lab [stackview](https://github.com/harvard-lil/stackview) Javascript into a Rails app. 
 
 # Requirements

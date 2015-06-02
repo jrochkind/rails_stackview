@@ -12,10 +12,12 @@ class StackviewDataController < ApplicationController
 
   def fetch
     config = config_for_types[ params[:call_number_type] ]
-    
-    fetch_adapter = config[:fetch_adapter].call
 
-    render :json => {'docs' => fetch_adapter.fetch(params)}
+    fetch_adapter = config[:fetch_adapter].call    
+
+    docs = fetch_adapter.fetch(params)
+
+    render :json => {'docs' => docs}
   end
 
 end

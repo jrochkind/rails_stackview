@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root :to => 'demo#index'
   get 'demo/index'
 
-  get 'stackview_data', :to => "stackview_data#fetch", :as => "stackview_data"
+  get 'stackview_data/:call_number_type', :to => "stackview_data#fetch", :as => "stackview_data"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -4,7 +4,11 @@
 <%= content_tag("div", "",
     :id => "stackview",
     :data => {
-        :stackview_init => {:url => "http://example.org"}
+        :stackview_init => {
+            :id => 0,
+            :url => stackview_data_path(:call_number_type => "test"),
+            :search_type => "loc_sort_order"
+        }
     })
 %>
 

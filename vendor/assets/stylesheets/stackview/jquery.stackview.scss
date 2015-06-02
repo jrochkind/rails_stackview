@@ -27,7 +27,7 @@
   -webkit-overflow-scrolling: touch;
 }
 .stack-items:before {
-  background: asset-url("stackview/images/bookEnd-prev.png");
+  background: asset-url("stackview/bookEnd-prev.png");
   content: "";
   display: block;
   width: 212px;
@@ -40,13 +40,13 @@
   display: block;
   width: 212px;
   height: 114px;
-  background: asset-url("stackview/images/bookEnd-next.png");
+  background: asset-url("stackview/bookEnd-next.png");
   margin: -7px 0 0 0;
 }
 
 .stackview-placeholder {
   width: 250px;
-  background: asset-url("stackview/images/placeholder.gif") no-repeat center center #ccd;
+  background: asset-url("stackview/placeholder.gif") no-repeat center center #ccd;
   border: 1px solid #bbb;
   border-radius: 3px;
   height: 40px;
@@ -65,10 +65,10 @@
   height: 100%;
   color: #fff;
   white-space: nowrap;
-  background: asset-url("stackview/images/gloss.png") repeat-x 0 47%;
+  background: asset-url("stackview/gloss.png") repeat-x 0 47%;
 }
 .stack-item > a:hover, .stack-item > a:focus {
-  background-image: asset-url("stackview/images/highGloss.png");
+  background-image: asset-url("stackview/highGloss.png");
   text-decoration: none;
 }
 .stack-item > a:visited, .stack-item > a:hover, .stack-item > a:active {
@@ -142,7 +142,7 @@
   position: absolute;
   bottom: -10px;
   left: 0;
-  background: asset-url("stackview/images/ribbonTab.png") no-repeat 0 0;
+  background: asset-url("stackview/ribbonTab.png") no-repeat 0 0;
   width: 10px;
   height: 10px;
 }
@@ -155,7 +155,7 @@
 *******************/
 .heat1 a {
   background-color: #ccebff;
-  background-image: asset-url("stackview/images/superGloss.png");
+  background-image: asset-url("stackview/superGloss.png");
   color: #222;
   text-shadow: 0 1px 0 #fff;
   border-color: #adf;
@@ -200,7 +200,7 @@
 
 .heat2 a {
   background-color: #adf;
-  background-image: asset-url("stackview/images/superGloss.png");
+  background-image: asset-url("stackview/superGloss.png");
   color: #222;
   text-shadow: 0 1px 0 #ddf1ff;
   border-color: #88cfff;
@@ -245,7 +245,7 @@
 
 .heat3 a {
   background-color: #77c9ff;
-  background-image: asset-url("stackview/images/highGloss.png");
+  background-image: asset-url("stackview/highGloss.png");
   color: #111;
   text-shadow: 0 1px 0 #adf;
   border-color: #59b6ef;
@@ -584,7 +584,7 @@
   overflow: hidden;
 }
 .stack-navigation .upstream {
-  background: asset-url("stackview/images/nav.png") 0 -87px no-repeat;
+  background: asset-url("stackview/nav.png") 0 -87px no-repeat;
 }
 .stack-navigation .upstream:hover, .stack-navigation .upstream:focus {
   background-position: 0 -44px;
@@ -593,7 +593,7 @@
   background-position: 0 -1px;
 }
 .stack-navigation .downstream {
-  background: asset-url("stackview/images/nav.png") 0 -130px no-repeat;
+  background: asset-url("stackview/nav.png") 0 -130px no-repeat;
 }
 .stack-navigation .downstream:hover, .stack-navigation .downstream:focus {
   background-position: 0 -173px;
@@ -705,7 +705,7 @@
   border-radius: 3px 0 0 3px;
 }
 .stack-serial > a, .stack-serial > a:hover, .stack-serial > a:focus {
-  background-image: asset-url("stackview/images/serials.png");
+  background-image: asset-url("stackview/serials.png");
 }
 .stack-serial .spine-text {
   left: 15px;
@@ -725,7 +725,7 @@
   bottom: 0;
   width: 17px;
   height: 38px;
-  background: asset-url("stackview/images/serials-edge.png") 0 0 no-repeat;
+  background: asset-url("stackview/serials-edge.png") 0 0 no-repeat;
   border-width: 2px 0;
   -o-transform-origin: 0 100%;
   -ms-transform-origin: 0 100%;
@@ -765,7 +765,7 @@
   margin: 0 0 1px 0;
 }
 .stack-soundrecording:before {
-  content: asset-url("stackview/images/icon-note.png");
+  content: asset-url("stackview/icon-note.png");
   position: absolute;
   left: 10px;
   top: 4px;
@@ -975,7 +975,7 @@
   text-overflow: ellipsis;
 }
 .url-bar:before {
-  content: asset-url("stackview/images/icon-globe.png");
+  content: asset-url("stackview/icon-globe.png");
   vertical-align: middle;
   position: relative;
   top: 1px;

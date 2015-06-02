@@ -14,3 +14,5 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 
 gem 'byebug', group: :development, :platforms => [:mri_20, :mri_21, :mri_22]
+gem 'sass-rails', "~> 5" # specify version beyond what's in gemspec
+gem 'jquery-rails'

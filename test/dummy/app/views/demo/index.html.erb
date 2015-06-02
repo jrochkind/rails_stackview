@@ -1,4 +1,10 @@
 <h1>Demo#index</h1>
 <p>Find me in app/views/demo/index.html.erb</p>
 
-<div id="stackview"></div>
+<%= content_tag("div", "",
+    :id => "stackview",
+    :data => {
+        :stackview_init => {:url => "http://example.org"}
+    })
+%>
+

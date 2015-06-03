@@ -6,6 +6,9 @@ class StackviewDataController < ApplicationController
   self.config_for_types = {
     'test' => {
       :fetch_adapter => lambda { RailsStackview::MockFetcher.new }
+    },
+    'lc' => {
+      :fetch_adapter => lambda { RailsStackview::DbWindowFetcher.new }
     }
   }
 

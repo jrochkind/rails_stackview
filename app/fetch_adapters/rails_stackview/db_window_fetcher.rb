@@ -30,14 +30,18 @@ module RailsStackview
 
       (first, last)  = RailsStackview.parse_query_range(params["query"])
       unless first < last
-        raise ArgumentError "beginning of range must be less than end: #{params["query"]}"
+        raise ArgumentError, "beginning of range must be less than end: #{params["query"]}"
       end
 
 
       # Fetch the AR models, then turn em into hashes, which include all
       # columns in the db, excluding some we don't want. 
+      #
+      # Plus we need to turn our single creator into an array, cause
+      # that's what stackview wants.
       fetch_records(first, last).collect do |record|
-        record.attributes.except(:id)
+        record.attributes.except('id').reject {|k, v| v.blank? }.
+          merge("creator" => (record["creator"].present? ? [record['creator']] : record['creator']))
       end
     end
 

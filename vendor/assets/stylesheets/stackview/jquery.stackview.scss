@@ -117,6 +117,9 @@
   text-shadow: none;
   color: #555;
 }
+.spine-year:empty {
+  display: none;
+}
 
 .stackview .ribbon {
   position: absolute;
@@ -163,10 +166,6 @@
 .heat1 a:visited, .heat1 a:hover, .heat1 a:active {
   color: #222;
 }
-.heat1 .item-top, .heat1 .item-edge {
-  background: #ccebff;
-  border-color: #adf;
-}
 .heat1 .stack-pages {
   border-color: #adf;
 }
@@ -207,10 +206,6 @@
 }
 .heat2 a:visited, .heat2 a:hover, .heat2 a:active {
   color: #222;
-}
-.heat2 .item-top, .heat2 .item-edge {
-  background: #adf;
-  border-color: #88cfff;
 }
 .heat2 .stack-pages {
   border-color: #88cfff;
@@ -253,10 +248,6 @@
 .heat3 a:visited, .heat3 a:hover, .heat3 a:active {
   color: #111;
 }
-.heat3 .item-top, .heat3 .item-edge {
-  background: #77c9ff;
-  border-color: #59b6ef;
-}
 .heat3 .stack-pages {
   border-color: #59b6ef;
 }
@@ -291,10 +282,6 @@
 .heat4 a {
   background-color: #44b4ff;
   text-shadow: 0 -1px 0 #11a0ff;
-  border-color: #11a0ff;
-}
-.heat4 .item-top, .heat4 .item-edge {
-  background: #44b4ff;
   border-color: #11a0ff;
 }
 .heat4 .stack-pages {
@@ -333,10 +320,6 @@
   text-shadow: 0 -1px 0 #008fee;
   border-color: #008fee;
 }
-.heat5 .item-top, .heat5 .item-edge {
-  background: #22a7ff;
-  border-color: #008fee;
-}
 .heat5 .stack-pages {
   border-color: #008fee;
 }
@@ -371,10 +354,6 @@
 .heat6 a {
   background-color: #0099ff;
   text-shadow: 0 -1px 0 #0085dd;
-  border-color: #007acc;
-}
-.heat6 .item-top, .heat6 .item-edge {
-  background: #0099ff;
   border-color: #007acc;
 }
 .heat6 .stack-pages {
@@ -413,10 +392,6 @@
   text-shadow: 0 -1px 0 #0070bb;
   border-color: #06a;
 }
-.heat7 .item-top, .heat7 .item-edge {
-  background: #0085dd;
-  border-color: #06a;
-}
 .heat7 .stack-pages {
   border-color: #06a;
 }
@@ -451,10 +426,6 @@
 .heat8 a {
   background-color: #0070bb;
   text-shadow: 0 -1px 0 #005c99;
-  border-color: #004777;
-}
-.heat8 .item-top, .heat8 .item-edge {
-  background: #0070bb;
   border-color: #004777;
 }
 .heat8 .stack-pages {
@@ -493,10 +464,6 @@
   text-shadow: 0 -1px 0 #004777;
   border-color: #002944;
 }
-.heat9 .item-top, .heat9 .item-edge {
-  background: #005c99;
-  border-color: #002944;
-}
 .heat9 .stack-pages {
   border-color: #002944;
 }
@@ -531,10 +498,6 @@
 .heat10 a {
   background-color: #004777;
   text-shadow: 0 -1px 0 #035;
-  border-color: #001522;
-}
-.heat10 .item-top, .heat10 .item-edge {
-  background: #004777;
   border-color: #001522;
 }
 .heat10 .stack-pages {

@@ -17,8 +17,8 @@ class CopyStackviewAssets < Rails::Generators::Base
   def copy_css
     # Copied to a sass file so we can use the asset-url helper to get proper
     # urls. 
-    copy_file "lib/jquery.stackview.css", "vendor/assets/stylesheets/stackview/jquery.stackview.scss" do |content|
-      content.gsub(/url\(["']?(?:images\/)?([^\)\"]*)["']?\)/, 'asset-url("stackview/\1")')
+    directory "src/scss", "vendor/assets/stylesheets/stackview" do |content|
+      content.gsub(/url\(["']?(?:images\/)?([^\)\"\']*)["']?\)/, 'asset-url("stackview/\1")')
     end
   end
 

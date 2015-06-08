@@ -24,7 +24,7 @@ class CopyStackviewAssets < Rails::Generators::Base
 
   desc "copy stackview JS"
   def copy_js
-    copy_file "lib/jquery.stackview.min.js", "vendor/assets/javascripts/stackview/jquery.stackview.min.js"
+    directory "src/js", "vendor/assets/javascripts/stackview/"
   end
 
   desc "record stackview git SHA"

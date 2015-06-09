@@ -1,8 +1,0 @@
-/*
- * Sprockets CSS manifest file for rails_stackview
- *
- * Includes vendored stackview CSS and any of our own custom CSS
- *
- *= require 'stackview/jquery.stackview'
- *= require_self
- */

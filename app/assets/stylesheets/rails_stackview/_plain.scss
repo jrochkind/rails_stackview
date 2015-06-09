@@ -1,0 +1,68 @@
+.stack-plain {  
+  > a {
+    position:relative;
+    border-radius:1px 0 1px 0;
+    border-width:1px;
+    border-style:solid;
+    padding:0 10px;
+    text-shadow:none;
+    background-image: none;
+
+    &:hover {
+      background-image: none;
+    }
+  }
+
+  .spine-text {
+    height:40px;
+    line-height:40px;
+    top:50%;
+    margin-top:-7px;
+    left:15px;
+    right:24px;
+  }
+
+  .spine-title {
+    font-family: monospace;
+    /*display: inline-block;
+    padding: 6px;
+    background: #f9fceb;
+    border-radius: 2px;
+    border-width: 0 1px;
+    border-style: dotted;
+    border-color: #e6dec4;*/
+  }
+
+  .spine-year {
+    @include rotate(-90deg);
+  }
+}
+
+
+.plain-top {
+  content:'';
+  display:block;
+  position:absolute;
+  top:-5px;
+  left:4px;
+  right:-5px;
+  height:3px;
+  border-width:1px;
+  border-style:solid;
+  @include skew(-70deg, 0);
+  border-radius:0 5px 0 5px;
+  z-index:2;
+}
+
+.plain-edge {
+  content:'';
+  display:block;
+  position:absolute;
+  top:-3px;
+  bottom:1px;
+  right:-8px;
+  width:6px;
+  @include skew(0, -20deg);
+  border-width:0 1px 1px 0;
+  border-style:solid;
+}

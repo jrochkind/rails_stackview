@@ -1,0 +1,10 @@
+/*
+ * CSS manifest file for rails_stackview, we make an scss file using
+ * imports, so our custom rails_stackview CSS, like the plain type
+ * definition, can use mixins defined in jquery.stackview
+ *
+ * Includes vendored stackview CSS and any of our own custom CSS
+ *
+ *= require 'stackview/jquery.stackview'
+ *= require_self
+ */

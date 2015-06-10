@@ -15,6 +15,22 @@ class StackviewDataControllerTest < ActionController::TestCase
     assert_equal 11, docs.length
   end
 
+  test "configured :link filter" do
+    StackviewDataController.set_config_for_type("test", 
+      :link => lambda do |hash|
+        "http://example.org/to_doc/#{hash['system_id']}"
+      end
+    )
+
+    get :fetch, :call_number_type => "test", :query => "[1 TO 10]"
+    
+    docs = JSON.parse( response.body )["docs"]
+
+    docs.each do |doc|
+      assert_equal "http://example.org/to_doc/#{doc['system_id']}", doc['link']
+    end
+  end
+
   class StackviewDataControllerConfigTest < ActionController::TestCase
 
     test "has and can look up config for `lc`" do

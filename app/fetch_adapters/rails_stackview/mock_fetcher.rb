@@ -13,6 +13,7 @@ module RailsStackview
       return first.upto(last).collect do |i|
         {
           'title' => "item #{i}",
+          'system_id' => "doc_#{i}",
           'creator' => ["author #{i}"],
           'pub_date' => "2000",
           'measurement_page_numeric' => rand(1..500),

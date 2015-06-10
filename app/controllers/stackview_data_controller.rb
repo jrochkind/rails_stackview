@@ -18,9 +18,7 @@ class StackviewDataController < ApplicationController
       :fetch_adapter => lambda { RailsStackview::MockFetcher.new }
     },
     'lc' => {
-      :link => lambda do |hash|
-        "https://catalyst.library.jhu.edu/catalog/#{hash['system_id']}"
-      end
+      # defaults are good. 
     }
   }
   def self.set_config_for_type(type, attributes)
@@ -59,6 +57,12 @@ class StackviewDataController < ApplicationController
 
     # Make sure defaults are covered
     docs = fetch_adapter.fetch(params).collect {|d| d.reverse_merge DefaultStackviewDocAttributes }
+
+    # add in URLs
+    url_proc = config[:link] || (lambda {|doc| doc["link"]})
+    docs.each do |doc|
+      doc["link"] = self.instance_exec(doc, &url_proc)
+    end
 
     result = {'docs' => docs}
     result['start'] = "-1" if docs.empty?

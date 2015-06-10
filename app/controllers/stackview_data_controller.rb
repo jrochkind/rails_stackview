@@ -60,7 +60,10 @@ class StackviewDataController < ApplicationController
     # Make sure defaults are covered
     docs = fetch_adapter.fetch(params).collect {|d| d.reverse_merge DefaultStackviewDocAttributes }
 
-    render :json => {'docs' => docs}
+    result = {'docs' => docs}
+    result['start'] = "-1" if docs.empty?
+
+    render :json => result
   end
 
 end

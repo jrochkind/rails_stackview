@@ -15,4 +15,25 @@ class StackviewDataControllerTest < ActionController::TestCase
     assert_equal 11, docs.length
   end
 
+  class StackviewDataControllerConfigTest < ActionController::TestCase
+
+    test "has and can look up config for `lc`" do
+      config = StackviewDataController.config_for_type('lc')
+      assert_present config
+
+      assert_present config[:fetch_adapter]
+    end
+
+    test "can set config" do
+      StackviewDataController.set_config_for_type("just_testing", :foo => :bar)
+
+      config = StackviewDataController.config_for_type('just_testing')
+      assert_present config
+
+      assert_equal :bar, config[:foo]
+
+      StackviewDataController.remove_config_for_type("just_testing")
+    end
+  end
+
 end

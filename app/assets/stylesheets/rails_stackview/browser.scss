@@ -16,6 +16,10 @@
     display: none;
   }
 
+  .stackview .stack-navigation {
+    top: 55px; // not sure why it ended up 5px by default. 
+  }
+
   .shelfbrowser-browse-column, .shelfbrowser-info-column {
     display: table-cell;
   }
@@ -24,9 +28,11 @@
     position: relative;
 
     width: 50%;
-    @media screen and (min-width: 1125px) { 
+    @media screen and (min-width: 925px) { 
       width: 60%;
     }
+
+    padding-left: 8px;
 
     .stackview {
       position: absolute;
@@ -38,9 +44,11 @@
 
   .shelfbrowser-info-column {    
     width: 50%;
-    @media screen and (min-width: 1125px) { 
+    @media screen and (min-width: 925px) { 
       width: 40%;
     }
+
+    padding-left: 16px;
   }
 
 }

@@ -1,0 +1,47 @@
+
+
+.shelfbrowser {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  max-width: 1340px;
+  overflow: hidden;
+  margin-right: auto;
+  margin-left: auto;
+
+
+
+  // we prefer no ribbon
+  .stackview .ribbon {
+    display: none;
+  }
+
+  .shelfbrowser-browse-column, .shelfbrowser-info-column {
+    display: table-cell;
+  }
+
+  .shelfbrowser-browse-column {
+    position: relative;
+
+    width: 50%;
+    @media screen and (min-width: 1125px) { 
+      width: 60%;
+    }
+
+    .stackview {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+
+  }
+
+  .shelfbrowser-info-column {    
+    width: 50%;
+    @media screen and (min-width: 1125px) { 
+      width: 40%;
+    }
+  }
+
+}
+

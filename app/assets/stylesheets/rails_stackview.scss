@@ -6,5 +6,6 @@
  * Includes vendored stackview CSS and any of our own custom CSS
  *
  *= require 'stackview/jquery.stackview'
+ *= require 'rails_stackview/browser'
  *= require_self
  */

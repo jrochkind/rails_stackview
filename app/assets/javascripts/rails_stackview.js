@@ -3,3 +3,4 @@
 //= require jquery.stackview.js
 //= require ./rails_stackview/auto_init.js
 //= require ./rails_stackview/plain.js
+//= require ./rails_stackview/browser.js

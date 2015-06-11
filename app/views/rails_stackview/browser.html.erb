@@ -1,0 +1,27 @@
+<div class="shelfbrowser">
+    <div class="shelfbrowser-browse-column">
+        <%= content_tag "div", "", 
+                :class => "shelfbrowser-stackview",
+                :data => {
+                    :stackview_init => {
+                        :id => 0,
+                        :url => stackview_data_path(
+                            local_assigns[:call_number_type] || "lc", 
+                            :origin_sort_key => local_assigns[:origin_sort_key]
+                        ),
+                        :search_type => "loc_sort_order"
+                    }
+                }
+        %>
+    </div>
+
+    <div class="shelfbrowser-info-column">
+        <div class="shelfbrowse-header">
+            <h2>Virtual Shelf Browse</h2>
+            <h2><small>Library of Congress Call Numbers</small><h2>
+        </div>
+
+    </div>
+
+</div>
+

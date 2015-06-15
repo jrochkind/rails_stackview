@@ -12,7 +12,15 @@ class StackviewDataController < ApplicationController
   class_attribute :_config_for_types
   self._config_for_types = {
     'default' => {
-      :fetch_adapter => lambda { RailsStackview::DbWindowFetcher.new }
+      :fetch_adapter => lambda { RailsStackview::DbWindowFetcher.new },
+      # By default, automatic link to Blacklight catalog_path if present
+      :link => lambda do |hash|
+        if self.respond_to?(:catalog_path)
+          catalog_path(hash["system_id"])
+        else
+          hash["link"]
+        end
+      end
     },
     'test' => {
       :fetch_adapter => lambda { RailsStackview::MockFetcher.new }

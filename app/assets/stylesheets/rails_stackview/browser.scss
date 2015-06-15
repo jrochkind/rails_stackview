@@ -45,12 +45,28 @@
   }
 
   .shelfbrowser-info-column {    
+    box-sizing: border-box;
     width: 50%;
     @media screen and (min-width: 925px) { 
       width: 40%;
     }
 
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+
     padding-left: 16px;
+    margin-bottom: 8px;
+
+    .stack-item-panel {
+      border: #ccebff solid 5px;
+      border-radius: 5px;
+      padding: 8px;
+      margin-right: 32px;
+      overflow-x: hidden;
+    }
+
   }
 
 }

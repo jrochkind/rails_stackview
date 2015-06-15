@@ -9,6 +9,6 @@ class DemoController < ApplicationController
   # Return partial HTML used for browser to display item on page
   # For this demo, we just echo back the params. 
   def browse_partial
-    render :layout => false, :html => params.to_json
+    render :layout => false, :html => (params.to_json * 20)
   end
 end

@@ -1,7 +1,9 @@
 (function($, undefined) {
 
   function fitToWindowHeight() {
-    $(".shelfbrowser").css("height", $(window).height());
+    var topOffset = $(".shelfbrowser").offset().top;
+
+    $(".shelfbrowser").css("height", $(window).height() - topOffset);
   }
 
   $( document ).on("ready", function() {

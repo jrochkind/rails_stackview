@@ -35,12 +35,22 @@
       width: 60%;
     }
 
+    // Does weird with our columns, but we're leaving in for now
     padding-left: 8px;
 
     .stackview {
       position: absolute;
       height: 100%;
       width: 100%;
+
+      // Stackview does not like box-styling: border-box.
+      // Bootstrap applies it to everything, we apply it to
+      // some things above here on purpose, as it makes things better. 
+      // But we need to return actual contents of the .stackview to
+      // content-box. 
+      * {
+        box-sizing: content-box;
+      }
     }
 
   }
@@ -64,7 +74,6 @@
       border: #ccebff solid 5px;
       border-radius: 5px;
       padding: 8px;
-      margin-right: 32px;
       overflow-x: hidden;
     }
 

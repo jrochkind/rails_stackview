@@ -2,19 +2,84 @@
 
 IN PROGRESS UNDER DEVELOPMENT NOT USABLE YET
 
-Tools for integrating the Harvard Innovation Lab [stackview](https://github.com/harvard-lil/stackview) Javascript into a Rails app. 
+**Tools** for integrating the Harvard Innovation Lab [stackview](https://github.com/harvard-lil/stackview) Javascript into a Rails app. 
 
-# Requirements
+This is not an out of the box solution, integrating it into your app will require some development.
+The hardest part, for call-number browse, is typically arranging your call numbers somewhere
+so they can be accessed in sorted order. 
 
-Stackview needs JQuery. 
+RailsStackview also not fully mature -- solutions have been worked out for my own use case needs,
+I've tried to architect in a way to support flexibility, and provide tools at different levels
+for different needs. But not all possibile configuration or architecture to support flexiblity
+have been fleshed out, and the architecture may not be ideal. 
 
-# Bare bones
+We do provide the stackview assets in a way compatible with the asset pipeline, which
+can be used directly. We also provide some higher level tools for certain use cases. 
 
-Will automatically load stackview on a data-stackview-init=json
+Our focused use case is 'shelf browse', browse through a very long list of ordered
+items, starting at a specified point in the middle. 
 
-# Development
+## Requirements
 
-## Vendored stackview assets
+The Stackview code needs JQuery, so you should have JQuery loaded in your app. 
+
+This code is meant for integration with a Rails app. It does not assume Blacklight,
+although is usable with Blacklight. 
+
+## Usage
+
+### Stackview assets are available. 
+
+To use the stackview assets directly, include them in your asset pipeline:
+
+~~~ruby
+# app/assets/javascripts/application.js
+//= require jquery.stackview.js
+~~~
+
+~~~
+# app/assets/stylesheets/application.css
+*= require stackview/jquery.stackview.scss
+~~~
+
+Now Stackview will be available in your app, via the asset pipeline,
+using the documented stackview API. (eg `$(something).stackView(something)`)
+
+Additionally, rails_stackview provides an automatic stackview loader
+on a data-stackview-init attribute, which can be convenient for integrating
+with Rails. 
+
+Add: 
+
+~~~
+# app/assets/javascripts/application.js
+//= require rails_stackview/auto_init.js
+~~~
+
+And in your ERB you can create a DIV that will have stackview loaded into it,
+in a way that makes it easy to specify your own rails controller as the back-end data provider:
+
+~~~erb
+<%= content_tag("div", "",
+    :id => "whatever_you_want",
+    :class => "whatever you want",
+    :data => {
+        :stackview_init => {
+            :id => 0,
+            :url => your_route_helper(some_args),
+            :search_type => "loc_sort_order"
+        }
+    })
+%>
+~~~
+
+### RailsStackview Back-End Support
+
+### The Browser
+
+## Development
+
+### Vendored stackview assets
 
 Stackview assets (JS, CSS, images) are included directly in source here, 
 under [./vendor/assets](./vendor/assets).
@@ -26,7 +91,7 @@ the currently vendored assets is included at
 There is a script for refreshing these assets in rails_stackview source,
 see [./vendor/assets/README.md](./vendor/assets/README.md).
 
-## Under-documented stackview loc_sort_order fetch mode
+### Under-documented stackview loc_sort_order fetch mode
 
 The original [stackview](https://github.com/harvard-lil/stackview) has a feature
 that is currently undocumented over there, to send search params to a back-end

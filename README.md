@@ -30,14 +30,16 @@ although is usable with Blacklight.
 
 ### Stackview assets are available. 
 
-To use the stackview assets directly, include them in your asset pipeline:
+To use the stackview assets directly, include them in your asset pipeline. 
+
+You can include just the original stackview JS and CSS:
 
 ~~~ruby
 # app/assets/javascripts/application.js
 //= require jquery.stackview.js
 ~~~
 
-~~~
+~~~ruby 
 # app/assets/stylesheets/application.css
 *= require stackview/jquery.stackview.scss
 ~~~
@@ -45,19 +47,25 @@ To use the stackview assets directly, include them in your asset pipeline:
 Now Stackview will be available in your app, via the asset pipeline,
 using the documented stackview API. (eg `$(something).stackView(something)`)
 
-Additionally, rails_stackview provides an automatic stackview loader
-on a data-stackview-init attribute, which can be convenient for integrating
-with Rails. 
+Or alternatley you can include all RailsStackview JS/CSS, which provides some
+support for higher level features, along with the original stackview assets:
 
-Add: 
-
-~~~
+~~~ruby
 # app/assets/javascripts/application.js
-//= require rails_stackview/auto_init.js
+//= require rails_stackview
 ~~~
 
-And in your ERB you can create a DIV that will have stackview loaded into it,
-in a way that makes it easy to specify your own rails controller as the back-end data provider:
+~~~ruby 
+# app/assets/stylesheets/application.css
+*= require rails_stackview
+~~~
+
+One additional feature included is an automatic application of stackview
+to any `<div>` with a `data-stackview-init` attribute, containing JSON
+serialization of stackview init arguments. 
+
+This can be convenient for integrating with Rails, letting you for instance
+specify your own rails controller as a data provider to stackview:
 
 ~~~erb
 <%= content_tag("div", "",
@@ -73,9 +81,33 @@ in a way that makes it easy to specify your own rails controller as the back-end
 %>
 ~~~
 
+The data-stackview-init hash can be whatever you like, as initialization
+arguments for the original stackview. 
+
 ### RailsStackview Back-End Support
 
-### The Browser
+* By default assumes call numbers listed in database table
+* migration
+* Lcsort recommended, but any ordering you want
+  * Adding bib number on the end of sort keys good idea
+* routing
+* Other FetchAdapters theoretically possible. Note our method of
+  origin sort key with back/forward paging. 
+* Start from specified sort key, can fetch from database. 
+* Kind of on your own with indexing, messy example for traject. 
+* Multiple call_types. 
+
+
+### The Browser Template
+
+* Needs NO footer to size stackview 'full viewport' properly. 
+* Can accomodate header, but best to keep it small. 
+* Best with no margin or padding provided by layout either. 
+* Needs routing for back-end support, more routing for partials. 
+
+### Custom format plain
+
+* Just include all RailsStackview assets instead of picking and choosing. 
 
 ## Development
 

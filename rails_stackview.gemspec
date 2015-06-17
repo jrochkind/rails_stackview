@@ -9,9 +9,8 @@ Gem::Specification.new do |s|
   s.version     = RailsStackview::VERSION
   s.authors     = ["Jonathan Rochkind"]
   s.email       = ["jonathan@dnil.net"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of RailsStackview."
-  s.description = "TODO: Description of RailsStackview."
+  s.homepage    = "https://github.com/jrochkind/rails_stackview"
+  s.summary     = "Tools for integrating the stackview browsing JS UI with Rails"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

@@ -39,10 +39,18 @@ module RailsStackview
       #
       # Plus we need to turn our single creator into an array, cause
       # that's what stackview wants.
-      fetch_records(first, last).collect do |record|
+      results = fetch_records(first, last).collect do |record|
         record.attributes.except('id').reject {|k, v| v.blank? }.
           merge("creator" => (record["creator"].present? ? [record['creator']] : record['creator']))
       end
+
+      # Mark the thing at 0 index as origin:true, so it can be auto-selected
+      # by browser. 
+      if (first..last).cover?(0)
+        results[first.abs]["is_origin_item"] = true
+      end
+
+      return results
     end
 
 

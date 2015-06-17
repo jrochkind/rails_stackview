@@ -57,6 +57,27 @@
           $(this).parent().addClass('active-item');
         }
       });
+
+      // Catch stackview.page the FIRST time, so we can trigger
+      // a click on the origin document. ONLY if we have an AJAX
+      // load URL though. 
+      $(document).on("stackview.pageload.initial-select", function(event) {
+        // Find the .stack-item which has data origin:true set, and click it. 
+        // Since we're only executing on first load, this shouldn't be
+        // that many items. 
+        var item_load_url = $(event.target).closest(".shelfbrowser-browse-column").data('stackviewBrowserItemPath');
+
+        if (item_load_url) {
+          $(".stack-item").each(function(index, item) {
+            if($(item).data("stackviewItem").is_origin_item) {
+              $(item).find("a").trigger('click');
+            }
+          });
+        }
+        
+        // Remove our handler, we only want to do this once. 
+        $(document).off("stackview.pageload.initial-select");
+      });
     }
   });
 

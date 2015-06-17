@@ -79,6 +79,9 @@
 
   .active-item {
     margin-left: 10px;
+    // Make the old item nudge in just a bit before
+    // new item nudges out. 
+    transition-delay: 40ms;
   }
 
   li.stack-item {

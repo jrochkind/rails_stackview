@@ -103,7 +103,7 @@ arguments for the original stackview.
 * Needs NO footer to size stackview 'full viewport' properly. 
 * Can accomodate header, but best to keep it small. 
 * Best with no margin or padding provided by layout either. 
-* Needs routing for back-end support, more routing for partials. 
+* Needs routing for back-end support, more routing for partials (stackview_browser_item_path)
 
 ### Custom format plain
 

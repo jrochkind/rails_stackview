@@ -28,9 +28,7 @@
   }
 
   .shelfbrowser-browse-column {
-    position: relative;
-
-    width: 50%;
+    width: 55%;
     @media screen and (min-width: 925px) { 
       width: 60%;
     }
@@ -39,9 +37,10 @@
     padding-left: 8px;
 
     .stackview {
-      position: absolute;
-      height: 100%;
-      width: 100%;
+      // Trying to do this made IE unhappy. 
+      //position: absolute;
+      //height: 100%;
+      //width: 100%;
 
       // Stackview does not like box-styling: border-box.
       // Bootstrap applies it to everything, we apply it to
@@ -57,7 +56,7 @@
 
   .shelfbrowser-info-column {    
     box-sizing: border-box;
-    width: 50%;
+    width: 45%;
     @media screen and (min-width: 925px) { 
       width: 40%;
     }
@@ -67,8 +66,7 @@
     bottom: 0;
     overflow-y: auto;
 
-    padding-left: 16px;
-    margin-bottom: 8px;
+    padding: 0 16px 16px 16px;
 
     .stack-item-panel {
       border: #ccebff solid 5px;

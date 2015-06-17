@@ -5,8 +5,12 @@
 
     if (shelfbrowser.size() > 0) {
       var topOffset = shelfbrowser.offset().top;
+      var height    = $(window).innerHeight() - topOffset;
 
-      shelfbrowser.css("height", $(window).height() - topOffset);
+      shelfbrowser.css("height",  height);
+      // set the actual .stackview element to have same height, CSS tricks
+      // to make it expand to fit weren't working esp in IE. 
+      $(".shelfbrowser-stackview").css("height", height);
     }
   }
 

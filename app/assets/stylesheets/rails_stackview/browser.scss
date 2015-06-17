@@ -68,10 +68,12 @@
 
     padding: 0 16px 16px 16px;
 
+    .shelfbrowse-header {
+      border-bottom: 1px solid #eeeeee;
+      margin-bottom: 16px;
+    }
+
     .stack-item-panel {
-      border: #ccebff solid 5px;
-      border-radius: 5px;
-      padding: 8px;
       overflow-x: hidden;
     }
 

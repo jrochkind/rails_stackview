@@ -1,9 +1,9 @@
 class StackviewDataController < ApplicationController
   # stackview doesn't like it if certain things are blank
   DefaultStackviewDocAttributes = {
-    "measurement_height_numeric" => 1,
+    "measurement_height_numeric" => 23,
     "shelfrank" => 1,
-    "measurement_page_numeric" => 1
+    "measurement_page_numeric" => 100
   }
 
   # config for different call number types; we don't

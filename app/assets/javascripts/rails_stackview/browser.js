@@ -50,7 +50,11 @@
 
           var item_attribute_hash = target.closest(".stack-item").data("stackviewItem");
 
+          $('.active-item').removeClass('active-item');
+
           loadItem(item_load_url,  panel,  item_attribute_hash );
+
+          $(this).parent().addClass('active-item');
         }
       });
     }

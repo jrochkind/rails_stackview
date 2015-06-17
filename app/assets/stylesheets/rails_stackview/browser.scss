@@ -77,5 +77,18 @@
 
   }
 
+  .active-item {
+    margin-left: 10px;
+  }
+
+  li.stack-item {
+    // For browsers that support CSS transitions, make
+    // pull out of active item awesome. 
+    transition-property: margin-left;
+    transition-duration: 180ms;
+    transition-timing-function: ease-in;
+
+  }
+
 }
 

@@ -26,8 +26,17 @@
       dataType: "html",
       success: function(html, status, xhr) {
         panel.html( html );
+      },
+      error: function(xhr, status, error) {
+        panel.html(errorPanel(error));
       }
     });
+  }
+
+  function errorPanel(text) {
+    return '<div class="alert alert-warning" role="alert">Sorry, we can not display this item.' +
+    (text ? (' (' + text + ')') : '') +
+    '</div>';
   }
 
   // We add origin_sort_key=$sort_key into the current

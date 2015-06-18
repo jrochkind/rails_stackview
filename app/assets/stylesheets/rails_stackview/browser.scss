@@ -70,8 +70,18 @@
     padding: 0 16px 16px 16px;
 
     .shelfbrowse-header {
-      border-bottom: 1px solid #eeeeee;
+      border-radius: 6px;
+      border: 1px solid #11a0ff;
+      padding: 16px;
+      background-color: #44b4ff;
+      color: #fff;
+      display: inline-block;
+      margin-top: 16px;
       margin-bottom: 16px;
+      h2 {
+        margin: 0;
+        padding: 0;
+      }
     }
 
     .stack-item-panel {

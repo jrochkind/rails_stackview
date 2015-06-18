@@ -84,10 +84,9 @@
         if(item_load_url && panel.length > 0) {
           event.preventDefault();
 
-          $('.active-item').removeClass('active-item');
-
           loadItem(item_load_url,  panel,  item_attribute_hash );
 
+          $('.active-item').removeClass('active-item');
           $(this).parent().addClass('active-item');
         }
       });

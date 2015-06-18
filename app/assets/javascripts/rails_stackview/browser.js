@@ -91,22 +91,40 @@
         }
       });
 
-      // Catch stackview.page the FIRST time, so we can trigger
-      // a click on the origin document. ONLY if we have an AJAX
-      // load URL though. 
+      // Catch stackview.page the FIRST time, so we can find the origin
+      // document and add a special class to it, which we'll use to click
+      // on it immediately, and set the scroll view so it's centered. 
       $(document).on("stackview.pageload.initial-select", function(event) {
         // Find the .stack-item which has data origin:true set, and click it. 
         // Since we're only executing on first load, this shouldn't be
         // that many items. 
+
         var item_load_url = $(event.target).closest(".shelfbrowser-browse-column").data('stackviewBrowserItemPath');
 
+        var $origin_item;
+
+        // Add .origin-item to origin, so we can do things with it....
+        $(event.target).find(".stack-item").each(function(index, item) {
+          if($(item).data("stackviewItem").is_origin_item) {
+            $origin_item = $(item);
+            // We add stackview-origin class to allow us to
+            // find it and position the scroll properly on load. 
+            $origin_item.addClass("stackview-origin");
+          }
+        });
+
+        //... we want to simulate clicking the origin, if we have a load url,
+        // so we can load it. 
         if (item_load_url) {
-          $(".stack-item").each(function(index, item) {
-            if($(item).data("stackviewItem").is_origin_item) {
-              $(item).find("a").trigger('click');
-            }
-          });
+          $origin_item.find("a").trigger('click');
         }
+
+        //... we want to try to set the scroll such that our origin item is
+        // centered. 
+        // stackview out of the box doesn't quite get this right, it's tricky,
+        // we seem to be doing okay. 
+        var container = $origin_item.closest("ul.stack-items");
+        container.scrollTop( $origin_item.get(0).offsetTop - (container.height() / 2) + ($origin_item.height() / 2) )
         
         // Remove our handler, we only want to do this once. 
         $(document).off("stackview.pageload.initial-select");

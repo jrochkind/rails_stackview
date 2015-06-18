@@ -104,6 +104,7 @@ arguments for the original stackview.
 * Can accomodate header, but best to keep it small. 
 * Best with no margin or padding provided by layout either. 
 * Needs routing for back-end support, more routing for partials (stackview_browser_item_path)
+* replaceState assumes origin_sort_key in query, and sort_key in stackview data dict. 
 
 ### Custom format plain
 

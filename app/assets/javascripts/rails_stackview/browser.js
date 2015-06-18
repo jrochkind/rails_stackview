@@ -30,6 +30,29 @@
     });
   }
 
+  // We add origin_sort_key=$sort_key into the current
+  // URL using pushState, if in a browser that supports. 
+  //
+  // The intention is to 'remember' the currently selected
+  // item on browser back button to this page, etc. 
+  //
+  // It does assume the host app is supporting ?origin_sort_key=$sort_key
+  // and passing it to template, to work. Could make more configurable
+  // later. 
+  function replaceSelectedState(item) {
+    if ('history' in window && 'replaceState' in history && 'sort_key' in item) { 
+      var query = location.search;
+      if (query.length == 0)
+        query = '?';
+
+      // replace origin_sort_key only if it exists
+      var re = new RegExp("([\\?&])origin_sort_key=([^&#]*)");
+      query = query.replace(re, '$1origin_sort_key=' + encodeURIComponent(item.sort_key));
+      
+      history.replaceState({}, '', query + location.hash);
+    }
+  }
+
   $( document ).on("ready", function() {
     if ($(".shelfbrowser").length > 0) {
       fitToWindowHeight();
@@ -45,10 +68,12 @@
         var item_load_url = target.closest(".shelfbrowser-browse-column").data('stackviewBrowserItemPath');
         var panel         = target.closest(".shelfbrowser").find(".shelfbrowser-info-column .stack-item-panel").filter(":visible");
 
-        if(item_load_url && panel.length > 0) {
-          event.preventDefault();   
+        var item_attribute_hash = target.closest(".stack-item").data("stackviewItem");
 
-          var item_attribute_hash = target.closest(".stack-item").data("stackviewItem");
+        replaceSelectedState(item_attribute_hash);
+
+        if(item_load_url && panel.length > 0) {
+          event.preventDefault();
 
           $('.active-item').removeClass('active-item');
 

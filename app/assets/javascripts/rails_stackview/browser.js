@@ -14,7 +14,17 @@
     }
   }
 
+  window.doit = true;
+
   function loadItem(base_url, panel, item) {
+    // Fade out the existing content with a pretty cheesy effect,
+    // ends up less confusing when load is slowish. Cheesy implementation.
+    panel.wrapInner("<div class='rails-stackview-panel-wrap'></div>");
+    panel.find(".rails-stackview-panel-wrap").delay(400).fadeTo(600, 0.2);
+
+
+
+    if (window.doit) {
     $.ajax({
       url: base_url,
       data: {
@@ -31,6 +41,7 @@
         panel.html(errorPanel(error));
       }
     });
+    }
   }
 
   function errorPanel(text) {

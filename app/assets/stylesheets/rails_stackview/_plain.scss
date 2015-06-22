@@ -2,11 +2,19 @@ $plain-bg-color: #36454F !default;
 $plain-border-color: #577183 !default;
 
 .stack-plain {
+  box-sizing: content-box;
+  position: relative;  
 
   > a {
+    box-sizing: content-box;
+
+
+
     min-height: 40px;
 
     position:relative;
+    width: 100%;
+
     border-radius: 3px 0 0 3px;
     border-width:1px;
     border-style:solid;
@@ -14,7 +22,7 @@ $plain-border-color: #577183 !default;
     text-shadow:none;
     font-size:11px;
     padding:0 10px 6px 0;
-    width: 900px;
+    
 
     background-image: none;
     border-color: $plain-border-color;
@@ -22,7 +30,7 @@ $plain-border-color: #577183 !default;
 
     font-family: monospace;
 
-    &:hover {
+    &:hover, &:active, &:focus {
       background-image: none;
     }
   }

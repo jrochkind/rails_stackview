@@ -92,8 +92,8 @@
     },
 
     template: '\
-      <li class="stack-item stack-plain heat<%= heat %>">\
-        <a href="<%= link %>" target="_blank" style="width:<%= box_height %>">\
+      <li class="stack-item stack-plain heat<%= heat %>" style="width:<%= box_height %>">\
+        <a href="<%= link %>" target="_blank">\
           <span class="spine-text">\
             <span class="plain-label">\
               <p class="plain-format"><%= format_descr %></p>\
@@ -102,7 +102,7 @@
           </span>\
           <span class="spine-year"><%= year %></span>\
           <span class="plain-top"></span>\
-          <span class="plain-edge"></span>\
+          <span class="plain-edge item-colors"></span>\
         </a>\
       </li>'
   });

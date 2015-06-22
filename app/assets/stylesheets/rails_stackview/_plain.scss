@@ -39,78 +39,77 @@ $plain-border-color: #577183 !default;
     @include rotate(-90deg);
   }
 
-}
-
-
-
-.spine-text {
+  .spine-text {
   right: 40px;
   left: 7px;
-}
-
-.plain-label {
-  box-sizing: border-box;
-
-  display:inline-block;
-  margin:7px 0 7px 0;
-  background:#f9fceb;
-  border-color: #e6dec4;
-  border-style: dotted;
-  padding:0 6px 0 6px;
-  border-radius:3px;
-  border:1px #ccc;
-
-  max-width: 100%;
-
-  text-overflow:ellipsis;
-
-  color: #222;
-
-  p {
-    margin-bottom: .3em;
   }
+
+  .plain-label {
+    box-sizing: border-box;
+
+    display:inline-block;
+    margin:7px 0 7px 0;
+    background:#f9fceb;
+    border-color: #e6dec4;
+    border-style: dotted;
+    padding:0 6px 0 6px;
+    border-radius:3px;
+    border:1px #ccc;
+
+    max-width: 100%;
+
+    text-overflow:ellipsis;
+
+    color: #222;
+
+    p {
+      margin-bottom: .3em;
+    }
+  }
+
+  .plain-title, .plain-format {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+  }
+
+  .plain-top {
+    background-color: $plain-bg-color;
+    border-color: $plain-border-color;
+
+
+    content:'';
+    display:block;
+    position:absolute;
+    top:-5px;
+    left:4px;
+    right:-5px;
+    height:3px;
+    border-width:1px;
+    border-style:solid;
+    @include skew(-70deg, 0);
+    border-radius:0 5px 0 5px;
+    z-index:2;
+  }
+
+  .plain-edge {
+    content:'';
+    display:block;
+    position:absolute;
+    top:-3px;
+    bottom:1px;
+    right:-8px;
+    width:6px;
+    @include skew(0, -20deg);
+    border-width:0 1px 1px 0;
+    border-style:solid;
+  }
+
 }
 
-.plain-title, .plain-format {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space:nowrap;
-}
-
-.plain-top {
-  background-color: $plain-bg-color;
-  border-color: $plain-border-color;
 
 
-  content:'';
-  display:block;
-  position:absolute;
-  top:-5px;
-  left:4px;
-  right:-5px;
-  height:3px;
-  border-width:1px;
-  border-style:solid;
-  @include skew(-70deg, 0);
-  border-radius:0 5px 0 5px;
-  z-index:2;
-}
 
-.plain-edge {
-  background-color: $plain-bg-color;
-  border-color: $plain-border-color;
-
-  content:'';
-  display:block;
-  position:absolute;
-  top:-3px;
-  bottom:1px;
-  right:-8px;
-  width:6px;
-  @include skew(0, -20deg);
-  border-width:0 1px 1px 0;
-  border-style:solid;
-}
 
 
 

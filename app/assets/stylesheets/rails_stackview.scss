@@ -4,8 +4,7 @@
  * definition, can use mixins defined in jquery.stackview
  *
  * Includes vendored stackview CSS and any of our own custom CSS
- *
- *= require 'stackview/jquery.stackview'
- *= require 'rails_stackview/browser'
- *= require_self
  */
+ @import 'stackview/jquery.stackview';
+ @import 'rails_stackview/browser';
+ @import 'rails_stackview/plain';

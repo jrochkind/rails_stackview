@@ -1,54 +1,28 @@
-/* A generic box 'type' for stackview, for things that don't
-   fit in any other category */
-
 (function($, window, undefined) {
   /*
-     Extend StackView defaults to include options for this item type.
+      A very poorly-designed type meant for 'other', meant to look
+      kind of like an archival box. 
 
-     max_height_percentage
-        Books with the maximum height will render as this percentage
-        width in the stack.
+      Trigger with "format: 'plain'", OR add a format label on the end
+      too:
 
-     max_height
-        The maximum height in centimeters that an item will render as,
-        regardless of the true height of the item.
+          format: "plain: VHS"
 
-     max_pages
-        The maximum number of pages that a book will render as,
-        regardless of the true number of pages.
+      The 'title' and extra format info will be displayed, along with pub_date. 
+      Author display not currently included. 
 
-     min_height_percentage
-        Books with the minimum height will render as this percentage
-        width in the stack.
-
-     min_height
-        The minimum height in centimeters that an item will render as,
-        regardless of the true height of the item.
-
-     min_pages
-        The minimum number of pages that a book will render as,
-        regardless of the true number of pages.
-
-     page_multiple
-        A number that when multiplied by the number of pages in a book
-        gives us the total pixel height to be rendered.
-
-     selectors.book
-        Item selector specific to the book type.
+      measurement_height_numeric can control box height, like 'book'
+      type. Box width is fixed though. 
   */
-  $.extend(true, window.StackView.defaults, {
+ $.extend(true, window.StackView.defaults, {
+    selectors: {
+      plain: '.stack-plain'
+    },
     plain: {
       max_height_percentage: 100,
       max_height: 39,
-      max_pages: 540,
-      min_height_percentage: 59,
-      min_height: 20,
-      min_pages: 200,
-      page_multiple: 0.20
-    },
-
-    selectors: {
-      plain: '.stack-plain'
+      min_height_percentage: 20,
+      min_height: 10
     }
   });
 
@@ -91,96 +65,45 @@
     height = Math.min(Math.max(height, min), max);
     height = translate(
       height,
-      options.book.min_height,
-      options.book.max_height,
-      options.book.min_height_percentage,
-      options.book.max_height_percentage
+      options.plain.min_height,
+      options.plain.max_height,
+      options.plain.min_height_percentage,
+      options.plain.max_height_percentage
     );
     return height + '%';
   };
 
-  /*
-     #get_thickness(StackView, object) - Private
-  
-     Takes a StackView instance and a book object. Returns a normalized
-     book thickness using the number of book pages, taking into account
-     the minimum pages, maximum pages, and pages multiple.
-  */
-  var get_thickness = function(options, book) {
-    var thickness = parseInt(book.measurement_page_numeric, 10),
-        min = options.book.min_pages,
-        max = options.book.max_pages,
-        multiple = options.book.page_multiple;
-    
-    if (isNaN(thickness)) {
-      thickness = min;
-    }
-    thickness = Math.min(Math.max(thickness, min), max) * multiple;
-    return thickness + 'px';
-  };
-
-  /*
-     #normalize_link(object) - Private
-  
-     Takes an item and returns the item's link, taking into account
-     workarounds that may come from inconsistent data structure.
-  */
-  var normalize_link = function(item) {
-    //workaround for link construction from LibraryCloud
-    return item.title_link_friendly ?
-      '../shelflife/book/' + item.title_link_friendly + '/' + item.id :
-      item.link;
-  };
-
-  /*
-     #get_author(object) - Private
-  
-     Takes an item and returns the item's author, taking the first
-     author if an array of authors is defined.
-  */
-  var get_author = function(item) {
-    var author = item.creator && item.creator.length ? item.creator[0] : '';
-    
-    if(/^([^,]*)/.test(author)) {
-      author = author.match(/^[^,]*/);
-    }
-    
-    return author;
-  };
-
-
-  /*
-     Book type definition.
-  */
   window.StackView.register_type({
     name: 'plain',
 
     match: function(item) {
-      return (item.format && item.format === 'plain');
+      return item.format === 'plain' || item.format.match(/^plain\:/);
     },
 
     adapter: function(item, options) {
       return {
         heat: window.StackView.utils.get_heat(item.shelfrank),
-        book_height: get_height(options, item),
-        book_thickness: get_thickness(options, item),
-        link: normalize_link(item),
+        box_height: get_height(options, item),
+        link: item.link,
         title: item.title,
-        author: get_author(item),
-        year: item.pub_date
+        year: item.pub_date,
+        format_descr: item.format.match(/^plain\:/) ? item.format.replace(/^plain\:/, '') : undefined
       };
     },
 
     template: '\
-      <li class="stack-item stack-plain heat<%= heat %>" style="width:<%= book_height %>; height:<%= book_thickness %>;">\
-        <a href="<%= link %>" target="_blank">\
+      <li class="stack-item stack-plain heat<%= heat %>">\
+        <a href="<%= link %>" target="_blank" style="width:<%= box_height %>">\
           <span class="spine-text">\
-            <span class="spine-title"><%= title %></span>\
-            <span class="spine-author"><%= author %></span>\
+            <span class="plain-label">\
+              <p class="plain-format"><%= format_descr %></p>\
+              <p class="plain-title"><%= title %></p>\
+            </span>\
           </span>\
           <span class="spine-year"><%= year %></span>\
-          <span class="plain-top item-colors" />\
-          <span class="plain-edge item-colors" />\
+          <span class="plain-top"></span>\
+          <span class="plain-edge"></span>\
         </a>\
-      </li>'  });
+      </li>'
+  });
 })(jQuery, window);

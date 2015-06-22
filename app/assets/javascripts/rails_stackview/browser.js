@@ -14,13 +14,7 @@
     }
   }
 
-
-
   function loadItem(base_url, panel, item) {
-    // Grey out the current panel, in case it takes a bit to load,
-    // leads to less confusing UX. CSS will use transitions if avail. 
-    $("<div class='rails-stackview-overlay'></div>").prependTo(panel);
-
     $.ajax({
       url: base_url,
       data: {

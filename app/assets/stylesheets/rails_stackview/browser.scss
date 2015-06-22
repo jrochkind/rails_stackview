@@ -1,4 +1,7 @@
-
+@keyframes rails-stackview-fadein {
+    from {opacity: 0;}
+    to {opacity: 0.7;}
+}
 
 .shelfbrowser {
   display: table;
@@ -75,9 +78,27 @@
     }
 
     .stack-item-panel {
+      position: relative;
       overflow-x: hidden;
     }
 
+    // Grey out current panel when loading new one, with
+    // CSS animation if browser supports. 
+
+    .rails-stackview-overlay {
+      z-index: 100000;
+      position: absolute;
+      top: -0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+
+      opacity: 0;
+      background-color: black;
+      animation: rails-stackview-fadein ease-in-out 1.5s;
+      animation-delay: 200ms;
+      animation-fill-mode: forwards;  
+    }
   }
 
   .active-item {

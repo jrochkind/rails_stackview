@@ -64,7 +64,13 @@ class StackviewDataController < ApplicationController
     fetch_adapter = config[:fetch_adapter].call    
 
     # Make sure defaults are covered
-    docs = fetch_adapter.fetch(params).collect {|d| d.reverse_merge DefaultStackviewDocAttributes }
+    docs = fetch_adapter.fetch(params).collect do |d|      
+      d = d.reverse_merge DefaultStackviewDocAttributes
+      # stackview doens't like shelfrank's over 100
+      d["shelfrank"] = [d["shelfrank"], 100].min
+
+      d
+    end
 
     # add in URLs
     url_proc = config[:link] || (lambda {|doc| doc["link"]})

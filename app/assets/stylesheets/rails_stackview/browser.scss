@@ -1,8 +1,7 @@
 
 
 .shelfbrowser {
-  display: table;
-  table-layout: fixed;
+  display: block;
   width: 100%;
   max-width: 1340px;
   overflow: hidden;
@@ -24,7 +23,7 @@
   }
 
   .shelfbrowser-browse-column, .shelfbrowser-info-column {
-    display: table-cell;
+    display: block;
   }
 
   .shelfbrowser-browse-column {
@@ -32,11 +31,14 @@
     @media screen and (min-width: 925px) { 
       width: 60%;
     }
+    float: left;
 
     // Does weird with our columns, but we're leaving in for now
     padding-left: 8px;
 
     .stackview {
+      overflow-y: hidden;
+
       // Trying to do this made IE unhappy. 
       //position: absolute;
       //height: 100%;
@@ -62,9 +64,7 @@
       width: 40%;
     }
 
-    position: absolute;
-    top: 0;
-    bottom: 0;
+    float: left;
     overflow-y: auto;
 
     padding: 0 16px 16px 16px;

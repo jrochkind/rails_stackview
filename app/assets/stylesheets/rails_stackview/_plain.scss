@@ -8,9 +8,7 @@ $plain-border-color: #577183 !default;
   > a {
     box-sizing: content-box;
 
-
-
-    min-height: 40px;
+    min-height: 45px;
 
     position:relative;
     width: 100%;
@@ -21,7 +19,7 @@ $plain-border-color: #577183 !default;
     color:#555;
     text-shadow:none;
     font-size:11px;
-    padding:0 10px 6px 0;
+    padding:0 10px 0 0;
     
 
     background-image: none;
@@ -40,37 +38,50 @@ $plain-border-color: #577183 !default;
   }
 
   .spine-text {
-  right: 40px;
-  left: 7px;
+    position: static;
+    //margin-right: 40px;
+    //margin-left: 7px;
+    margin: 7px 14px 7px 7px;
   }
 
   .plain-label {
-    box-sizing: border-box;
+    box-sizing: border-box !important;
 
-    display:inline-block;
+    //display:inline-block;
     margin:7px 0 7px 0;
-    background:#f9fceb;
-    border-color: #e6dec4;
-    border-style: dotted;
-    padding:0 6px 0 6px;
-    border-radius:3px;
-    border:1px #ccc;
+    //border-radius:3px;
+    //border:1px #ccc;
 
     max-width: 100%;
 
     text-overflow:ellipsis;
 
-    color: #222;
-
-    p {
-      margin-bottom: .3em;
-    }
+    color: #fff;
   }
 
-  .plain-title, .plain-format {
+  .plain-title, .plain-format, .plain-author {
+    box-sizing: border-box !important;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space:nowrap;
+    margin-right: 7px;
+    line-height: 18px;
+  }
+
+  .plain-title {
+    font-size: 13px;
+    float: left;
+  }
+  .plain-format {
+    float: left;
+    clear: left;
+    &:empty {
+      clear: none;
+    }
+  }
+  .plain-author {
+    float: right;
   }
 
   .plain-top {

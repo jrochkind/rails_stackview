@@ -73,6 +73,23 @@
     return height + '%';
   };
 
+  /*
+     #get_author(object) - Private
+  
+     Takes an item and returns the item's author, taking the first
+     author if an array of authors is defined.
+  */
+  var get_author = function(item) {
+    var author = item.creator && item.creator.length ? item.creator[0] : '';
+    
+    if(/^([^,]*)/.test(author)) {
+      author = author.match(/^[^,]*/);
+    }
+    
+    return author;
+  };
+
+
   window.StackView.register_type({
     name: 'plain',
 
@@ -86,6 +103,7 @@
         box_height: get_height(options, item),
         link: item.link,
         title: item.title,
+        author: get_author(item),
         year: item.pub_date,
         format_descr: item.format.match(/^plain\:/) ? item.format.replace(/^plain\:/, '') : undefined
       };
@@ -96,8 +114,9 @@
         <a href="<%= link %>" target="_blank">\
           <span class="spine-text">\
             <span class="plain-label">\
-              <p class="plain-format"><%= format_descr %></p>\
               <p class="plain-title"><%= title %></p>\
+              <p class="plain-format"><%= format_descr %></p>\
+              <p class="plain-author"><%= author %></p>\
             </span>\
           </span>\
           <span class="spine-year"><%= year %></span>\

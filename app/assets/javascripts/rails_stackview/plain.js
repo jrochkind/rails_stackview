@@ -120,7 +120,7 @@
             </span>\
           </span>\
           <span class="spine-year"><%= year %></span>\
-          <span class="plain-top"></span>\
+          <span class="plain-top item-colors"></span>\
           <span class="plain-edge item-colors"></span>\
         </a>\
       </li>'

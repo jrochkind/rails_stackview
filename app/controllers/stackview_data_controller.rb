@@ -26,6 +26,9 @@ class StackviewDataController < ApplicationController
       :fetch_adapter => lambda { RailsStackview::MockFetcher.new }
     },
     'lc' => {
+      :link => lambda do |hash|
+        "https://catalyst.library.jhu.edu/catalog/#{hash['system_id']}"
+      end
       # defaults are good. 
     }
   }

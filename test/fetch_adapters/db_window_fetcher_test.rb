@@ -3,7 +3,7 @@ require 'test_helper'
 
 class DbWindowFetcherTest < ActiveSupport::TestCase
   setup do
-    @center_sort_key = StackviewCallNumber.order("sort_key").offset(StackviewCallNumber.count / 2).first.sort_key
+    @center_sort_key = 'M  000100A110D300 000 NO3'
   end
 
   test "fetch around center" do
@@ -17,6 +17,8 @@ class DbWindowFetcherTest < ActiveSupport::TestCase
     assert_equal @center_sort_key, results[5]["sort_key"]
 
     assert_sorted_by_sort_key results
+
+    assert results.all? {|h| h["sort_key_type"] == 'lc'}
   end
 
   test "fetch positive including" do

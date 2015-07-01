@@ -24,6 +24,8 @@ module RailsStackview
 
     def fetch(params)
       @origin_sort_key = params["origin_sort_key"]
+      @sort_key_type   = params["sort_key_type"] || "lc"
+
       unless @origin_sort_key.present?
         raise ArgumentError, "`origin_sort_key` param required, specifying where to start the browse"
       end
@@ -68,12 +70,14 @@ module RailsStackview
 
     def positive_fetch(first, last)
       StackviewCallNumber.where("sort_key >= ?", @origin_sort_key).
+        where(:sort_key_type => @sort_key_type).
         order("sort_key ASC").
         offset(first).limit(last - first + 1)
     end
 
     def negative_fetch(first, last)
       StackviewCallNumber.where("sort_key < ?", @origin_sort_key).
+        where(:sort_key_type => @sort_key_type).
         order("sort_key DESC").
         offset(last.abs - 1).limit(last - first + 1).
         reverse

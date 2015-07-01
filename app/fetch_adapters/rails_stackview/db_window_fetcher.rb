@@ -67,7 +67,9 @@ module RailsStackview
     end
 
     def positive_fetch(first, last)
-      StackviewCallNumber.where("sort_key >= ?", @origin_sort_key).offset(first).limit(last - first + 1)
+      StackviewCallNumber.where("sort_key >= ?", @origin_sort_key).
+        order("sort_key ASC").
+        offset(first).limit(last - first + 1)
     end
 
     def negative_fetch(first, last)

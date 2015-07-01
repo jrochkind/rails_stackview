@@ -25,6 +25,13 @@
 
     <div class="shelfbrowser-info-column">
         <div class="shelfbrowse-header">
+            <%# cheesy way to provide a 'back' button, our users requested it %>
+            <% if request.referer %>
+                <p class="shelfbrowser-back-btn">
+                    <%= link_to "« Back to Catalog", request.referer %>
+                </p>
+            <% end %>
+
             <h2>Virtual Shelf Browse</h2>
         </div>
 

@@ -68,10 +68,10 @@ module RailsStackview
       end
     end
 
-    def positive_fetch(first, last)
+    def positive_fetch(first, last)      
       StackviewCallNumber.where("sort_key >= ?", @origin_sort_key).
         where(:sort_key_type => @sort_key_type).
-        where(:pending => false).
+        where('(pending IS NULL) OR (pending <> 1)').
         order("sort_key ASC").
         offset(first).limit(last - first + 1)
     end
@@ -79,7 +79,7 @@ module RailsStackview
     def negative_fetch(first, last)
       StackviewCallNumber.where("sort_key < ?", @origin_sort_key).
         where(:sort_key_type => @sort_key_type).
-        where(:pending => false).
+        where('(pending IS NULL) OR (pending <> 1)').
         order("sort_key DESC").
         offset(last.abs - 1).limit(last - first + 1).
         reverse

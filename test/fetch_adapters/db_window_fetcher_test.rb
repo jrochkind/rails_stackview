@@ -18,12 +18,7 @@ class DbWindowFetcherTest < ActiveSupport::TestCase
 
     assert_sorted_by_sort_key results
 
-    # Does not include our non-lc sort key type
     assert results.all? {|h| h["sort_key_type"] == 'lc'}
-
-    # Does not include our record marked pending
-    refute results.any? {|h| h["title"] == stackview_call_numbers(:record_not_ready).title}
-
   end
 
   test "fetch positive including" do

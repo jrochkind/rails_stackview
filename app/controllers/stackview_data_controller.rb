@@ -68,8 +68,6 @@ class StackviewDataController < ApplicationController
       d = d.reverse_merge DefaultStackviewDocAttributes
       # stackview doens't like shelfrank's over 100
       d["shelfrank"] = [d["shelfrank"], 100].min
-      # No need to pass on the 'pending' column
-      d.delete("pending")
 
       d
     end

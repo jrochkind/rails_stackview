@@ -243,21 +243,6 @@ record_bad_wrong_key_type:
   pub_date: '1834'
   created_at: 2015-05-28 15:39:05.000000000 Z
 
-record_not_ready:
-  pending: true
-  sort_key_type: lc
-  sort_key: M  000100A110D300 000 NO4
-  sort_key_display: M1.A11 D3 no.4
-  system_id: bib_294169
-  title: 'PENDING DO NOT INCLUDE'
-  creator: Horn, Charles E, 1786-1849. (Charles Edward),
-  format: 
-  measurement_page_numeric: 
-  measurement_height_numeric: 
-  shelfrank: 
-  pub_date: '1834'
-  created_at: 2015-05-28 15:39:05.000000000 Z
-
 record_230299:
   sort_key: M  000100A110D300 000 NO4
   sort_key_display: M1.A11 D3 no.4

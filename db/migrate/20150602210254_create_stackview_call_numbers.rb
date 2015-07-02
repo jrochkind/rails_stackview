@@ -2,9 +2,9 @@ class CreateStackviewCallNumbers < ActiveRecord::Migration
   def change
     create_table :stackview_call_numbers do |t|
       # these are what we want to assemble items in a sequence,
-      t.string :sort_key, :null => false, :length => 200
+      t.string :sort_key, :null => false, :length => 100
       t.string :sort_key_display
-      t.string :sort_key_type, :null => false, :length => 200
+      t.string :sort_key_type, :null => false, :length => 100
 
       # and be able to link back to external systems
       t.string :system_id, :null => false, :length => 100
@@ -22,11 +22,8 @@ class CreateStackviewCallNumbers < ActiveRecord::Migration
 
       t.string :pub_date
 
-      # pending true will not be included in results, can be
-      # used for index updating strategies to avoid duplication. 
-      t.column :pending, :boolean, :default => false
-
       # record created_at for bookkeeping
+
       t.column :created_at, :datetime
 
       # indexes

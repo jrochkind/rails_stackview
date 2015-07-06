@@ -49,7 +49,8 @@ module RailsStackview
       # Mark the thing at 0 index as origin:true, so it can be auto-selected
       # by browser. 
       if (first..last).cover?(0)
-        results[first.abs]["is_origin_item"] = true
+        origin_index = [first.abs, results.length - 1].min
+        results[origin_index]["is_origin_item"] = true
       end
 
       return results

@@ -41,6 +41,18 @@
       },
       error: function(xhr, status, error) {
         panel.html(errorPanel(error));
+      },
+      complete: function(xhr, status) {
+        // Some kind of bug in chrome/webkit is sometimes making
+        // parts of the info column be not properly painted, especially
+        // on retina screens.  Think we trigger it by changing DOM inside an
+        // overflow:auto section.
+        // This seems to work around it hackily:
+        $(".shelfbrowser-info-column").fadeTo(1, .99).fadeTo(1, 1);
+
+        // If the info column was previously scrolled, we want
+        // to go to top for this new content. 
+        $(".shelfbrowser-info-column").scrollTop(0);
       }
     });
     }
@@ -100,14 +112,7 @@
           loadItem(item_load_url,  panel,  item_attribute_hash );
 
           $('.active-item').removeClass('active-item');
-          $(this).parent().addClass('active-item');
-
-          // Some kind of bug in chrome/webkit is sometimes making
-          // parts of the info column be not properly painted, especially
-          // on retina screens.  Think we trigger it by changing DOM inside an
-          // overflow:auto section.
-          // This seems to work around it hackily:
-          $(".shelfbrowser-info-column").fadeTo(1, .99).fadeTo(1, 1);
+          $(this).parent().addClass('active-item');                    
         }
       });
 

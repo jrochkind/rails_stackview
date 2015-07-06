@@ -1,7 +1,7 @@
 (function($, window, undefined) {
   /*
       A very poorly-designed type meant for 'other', meant to look
-      kind of like an archival box. 
+      sort of like a simple box with a typed sticky label.  
 
       Trigger with "format: 'plain'", OR add a format label on the end
       too:
@@ -113,11 +113,9 @@
       <li class="stack-item stack-plain heat<%= heat %>" style="width:<%= box_height %>">\
         <a href="<%= link %>" target="_blank">\
           <span class="spine-text">\
-            <span class="plain-label">\
               <p class="plain-title"><%= title %></p>\
               <p class="plain-format"><%= format_descr %></p>\
               <p class="plain-author"><%= author %></p>\
-            </span>\
           </span>\
           <span class="spine-year"><%= year %></span>\
           <span class="plain-top item-colors"></span>\

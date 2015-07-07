@@ -19,7 +19,7 @@
     padding:0 10px 0 0;
 
     // disable background image inherited
-    &, &:hover, &:active, &:focus {
+    &, &:hover, &:active, &:focus, &:selected {
       background-image: none;
     }
 
@@ -30,6 +30,15 @@
     @include rotate(-90deg);
   }
 
+  .label-container {
+    //Makes it easier to keep the spine-text away from the date label
+    //with another container, sorry. 
+    display: block;
+    margin: 0;
+    padding: 3px 28px 4px 4px;
+    max-width: 100%;
+  }
+
   .spine-text {
     position: static;
     
@@ -38,8 +47,10 @@
     color: rgb(34, 34, 34);
     border-color: rgb(34, 34, 34);
     border-radius: 4px;
-    margin: 3px 21px 7px 4px;
     padding: 4px 0 2px 4px;
+
+    display: inline-block;
+    max-width: 100%;
   }
 
 
@@ -64,6 +75,7 @@
     &:empty {
       clear: none;
     }
+    padding-right: 30px;
   }
   .plain-author {
     float: right;

@@ -112,10 +112,12 @@
     template: '\
       <li class="stack-item stack-plain heat<%= heat %>" style="width:<%= box_height %>">\
         <a href="<%= link %>" target="_blank">\
-          <span class="spine-text">\
-              <p class="plain-title"><%= title %></p>\
-              <p class="plain-format"><%= format_descr %></p>\
-              <p class="plain-author"><%= author %></p>\
+          <span class="label-container">\
+            <span class="spine-text">\
+                <p class="plain-title"><%= title %></p>\
+                <p class="plain-format"><%= format_descr %></p>\
+                <p class="plain-author"><%= author %></p>\
+            </span>\
           </span>\
           <span class="spine-year"><%= year %></span>\
           <span class="plain-top item-colors"></span>\

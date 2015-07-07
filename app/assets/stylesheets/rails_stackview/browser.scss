@@ -39,6 +39,7 @@
     .stackview {
       overflow-y: hidden;
 
+
       // Trying to do this made IE unhappy. 
       //position: absolute;
       //height: 100%;
@@ -49,8 +50,9 @@
       // some things above here on purpose, as it makes things better. 
       // But we need to return actual contents of the .stackview to
       // content-box. 
+      box-sizing: content-box;
       * {
-        box-sizing: content-box;
+        box-sizing: inherit;
       }
     }
 

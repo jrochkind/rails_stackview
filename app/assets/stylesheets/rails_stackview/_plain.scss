@@ -19,7 +19,7 @@
     padding:0 10px 0 0;
 
     // disable background image inherited
-    &, &:hover, &:active, &:focus, &:selected {
+    &, &:hover, &:active, &:focus {
       background-image: none;
     }
 

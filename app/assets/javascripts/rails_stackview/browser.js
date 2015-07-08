@@ -92,7 +92,7 @@
     if ($(".shelfbrowser").length > 0) {
       fitToWindowHeight();
 
-      $( window ).on("resize", function() {
+      $( window ).on("resize orientationchange", function() {
         fitToWindowHeight();
       });
       

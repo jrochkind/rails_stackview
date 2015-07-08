@@ -38,6 +38,7 @@
       dataType: "html",
       success: function(html, status, xhr) {
         panel.html( html );
+        panel.trigger("stackview-item-load");
       },
       error: function(xhr, status, error) {
         panel.html(errorPanel(error));
@@ -112,7 +113,7 @@
           loadItem(item_load_url,  panel,  item_attribute_hash );
 
           $('.active-item').removeClass('active-item');
-          $(this).parent().addClass('active-item');                    
+          $(this).parent().addClass('active-item');
         }
       });
 

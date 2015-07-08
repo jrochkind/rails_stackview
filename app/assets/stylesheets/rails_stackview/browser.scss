@@ -1,4 +1,4 @@
-
+$rails-shelfbrowse-hide-browse-breakpoint: 565px !default;
 
 .shelfbrowser {
   display: block;
@@ -31,6 +31,11 @@
     @media screen and (min-width: 925px) { 
       width: 60%;
     }
+    // on Very small screens, this column is it. 
+    @media screen and (max-width: $rails-shelfbrowse-hide-browse-breakpoint) {
+      width: 100%;
+    }
+
     float: left;
 
     // Does weird with our columns, but we're leaving in for now
@@ -64,6 +69,10 @@
     @media screen and (min-width: 925px) { 
       padding-right: 48px;
       width: 40%;
+    }
+    // Hide entirely on very small sizes
+    @media screen and (max-width: $rails-shelfbrowse-hide-browse-breakpoint) {
+      display: none;
     }
 
     float: left;

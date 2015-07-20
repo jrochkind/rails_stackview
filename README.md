@@ -223,12 +223,39 @@ may be hard-coded in unpleasant ways, but the beginnings are there.
 
 ### Front-end Support: The Browser Template
 
-* Needs NO footer to size stackview 'full viewport' properly. 
-* Can accomodate header, but best to keep it small. 
-* Best with no margin or padding provided by layout either. 
-* Needs routing for back-end support, more routing for partials (stackview_browser_item_path)
-* replaceState assumes origin_sort_key in query, and sort_key in stackview data dict. 
-* trigger event on item load?
+You can write your own Rails template with the stackview element on it. It turns
+out it's a bit tricky to get right for common cases. 
+
+`rails_stackview` provides a 'browser' template you can use, which is a two-column
+display with stackview on the left, and an item detail panel on the right. It
+takes care of a lot of odd edge cases and details, especially focused again on
+an 'infinite' shelf browser use case. 
+
+You can use this template in your own controller action method. It needs to be
+initialized with an starting point sortkey, which the stack will center on. It's
+recommended you use a query parameter to pass in the sort key -- the browser
+javascript includes some code to update such a query param with JS replaceState(),
+to keep back button working well. 
+
+    render :template => 'rails_stackview/browser', :locals => {:origin_sort_key => params["origin_sort_key"]}
+
+You may want to customize your Rails layout template to work best with the browser template. 
+The browser template is designed best to work with _no_ padding or spacing
+underneath it -- Javascript will set the stackview element to stretch to the bottom
+of the browser. A small header is okay. No right or left margin or padding is best. 
+
+The browser template does use the back-end StackviewDataController, you will need
+to have that set up properly as above. 
+
+If you want a click on a stack item to load information in the right panel, then you need
+to define your own Rails route with a `stackview_browser_item`, which returns partial
+HTML that should be loaded (via AJAX) in the item detail panel on a click. 
+
+On very small screens, the browser is only a single column without the item detail panel,
+and clicks on items will follow the href set on the items, see above under `Set the link URL`. 
+
+The browser Javascript (included in rails_stackview.js) will send an event (TODO)
+on original load. TODO TODO. 
 
 ### Custom format plain
 

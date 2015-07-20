@@ -5,18 +5,13 @@ IN PROGRESS UNDER DEVELOPMENT NOT USABLE YET
 **Tools** for integrating the Harvard Innovation Lab [stackview](https://github.com/harvard-lil/stackview) Javascript into a Rails app. 
 
 This is not an out of the box solution, integrating it into your app will require some development.
+
 The hardest part, for call-number browse, is typically arranging your call numbers somewhere
 so they can be accessed in sorted order. 
 
-RailsStackview also not fully mature -- solutions have been worked out for my own use case needs,
-I've tried to architect in a way to support flexibility, and provide tools at different levels
-for different needs. But not all possibile configuration or architecture to support flexiblity
-have been fleshed out, and the architecture may not be ideal. 
+RailsStackview contains the original stackview assets, arranged for the Rails asset pipeline. Along with some higher-level components. These higher-level have been created for my own use cases and needs; while I've tried to give a nod to future expandability, they haven't been created to be fully robust and configurable for all use cases. In this project, for a change, I've tried to be guided by keeping it simple and [YAGNI](http://martinfowler.com/bliki/Yagni.html). 
 
-We do provide the stackview assets in a way compatible with the asset pipeline, which
-can be used directly. We also provide some higher level tools for certain use cases. 
-
-Our focused use case is 'shelf browse', browse through a very long list of ordered
+My focused use case is 'shelf browse', browse through a very long list of ordered
 items, starting at a specified point in the middle. 
 
 ## Requirements
@@ -25,6 +20,8 @@ The Stackview code needs JQuery, so you should have JQuery loaded in your app.
 
 This code is meant for integration with a Rails app. It does not assume Blacklight,
 although is usable with Blacklight. 
+
+Add it to your app like any other gem, by listing in the Gemfile. 
 
 ## Usage
 
@@ -84,27 +81,137 @@ specify your own rails controller as a data provider to stackview:
 The data-stackview-init hash can be whatever you like, as initialization
 arguments for the original stackview. 
 
-### RailsStackview Back-End Support
+### Back-End Support: The StackviewDataController to feed data to stackview
 
-* By default assumes call numbers listed in database table
-* migration
-* Lcsort recommended, but any ordering you want
-  * Adding bib number on the end of sort keys good idea
-* routing
-* Other FetchAdapters theoretically possible. Note our method of
-  origin sort key with back/forward paging. 
-* Start from specified sort key, can fetch from database. 
-* Kind of on your own with indexing, messy example for traject. 
-* Multiple call_types. 
+The [StackviewDataController](./app/controllers/stackview_data_controller.rb) is provided
+to feed data to a stackview UI,
+with the use case of 'call number browse', or starting at an arbitrary
+point in a very long list of items, and paging both back and forwards. 
+
+The current implementation of the StackviewDataController counts
+on a table of individual call numbers existing in your database. 
+It is difficult to get the querries we need out of Solr directly, and
+we opted to create a duplicate 'denormalized' database table with
+exactly the info needed to support the front-end. 
+
+Once you've added `rails_stackview` to your Gemfile, you can
+install a migration into your app to create the `stackview_call_numbers` table,
+with:
+
+    bundle exec rake rails_stackview_engine:install:migrations
+
+It is up to you to fill this table with call number data. If you
+use [traject](https://github.com/traject/traject) to index
+MARC to Solr, you can look at this example of how I handle
+creating the stackview_call_numbers table at the same time
+I do my Solr indexing. (TODO)
+
+Here are the elements of the `stackview_call_numbers` table:
+
+* `system_id` (string), the primary key of the original item
+   in your overall system, used for linking from stackview
+   to your system. 
+* `sort_key` (string), a _sortable_ representation of your call
+   number or other ordering. Used for sorting the stack. If you
+   are using LC Call Numbers and populating this table in ruby,
+   we suggest the [Lcsort](https://github.com/pulibrary/lcsort) gem for turning a call number
+   into a sortable representation. Some features will end up less confusing if
+   sort_keys are unique, although they aren't required to be -- I append
+   the bibID to the end of each sort_key, to make them unique even if two
+   bibs share the same call number. 
+* `sort_key_display` (string, optional), the original human-displayable
+   call number, can be used for display.
+* `title` (string), title to use in stackview representation. 
+* `creator` (string, optional), author to use in stackview representation. 
+* `pub_date` (string, optional), publication year (as string) to use in stackview representation. 
+* `measurement_page_numeric` (int, optional), page count, passed to stackview for represnetation width.
+* `measurement_height_numeric` (int, optional), item height (usually in cm), passed to stackview for representation height
+* `shelfrank` (int, optional), 1-100, passed to stackview for "heatmap" intensity coloring of representation. Normally a count of number of times checked out. 
+* `created_at` (datetime, optional), can set to row creation date for your administrative convenience. 
+* `format`: Passed to stackview to choose a format-specific view template, should be one of magic words from stackview's own source (case-sensitive, not entirely consistent): `book` `Serial`, `Sound Recording`, `Video/Film`, `webpage`. Also our own special `plain` format, which can also take a specific description etc `plain:VHS`.  See more at "Custom Plain Format" below. 
+* `sort_key_type` (string): Eventually we plan to support multiple separate call number runs, which will
+be identified by `sort_key_type`. We have the beginnings of such an architecture, but
+it may not be fully fleshed out and may have performance implications. For now recommend always setting
+this to the default, `lc`. 
+
+Once you've filled this database, you can use it with our Browser front-end, or you can construct your own stackview front-end telling stackview to use this to use this controller as a source for:
+
+Add routing to the StackviewDataController in your own `./config/routes.rb`
+
+~~~ruby
+    get 'stackview_data/:call_number_type', :to => "stackview_data#fetch", :as => "stackview_data"
+~~~
+
+(That specific `:as => 'stackview_data'` is needed if you are using our Browser front-end)
+
+When you initialize a stackview UI element, you have to tell it what item to start at, by giving it a `sort_key` (normalized sortable call number representation) value.  One way to get a sort_key for
+a known item, is simply to look it up from the existing `stackview_call_numbers` table:
+
+~~~ruby
+    origin_sort_key = StackviewCallNumber.where(:system_id => document.id).order("created_at").pluck(:sort_key).first # may be nil if no such system_id recorded
+~~~
+
+Now you can initialize a stackview UI element, using the RailsStackview feature
+to automatically init a stackview from a data-stackview-init attribute:
+
+~~~erb
+    <%= content_tag("div", "",
+        :id => "my_stackview",
+        :data => {
+            :stackview_init => {
+                :id => 0,
+                :url => stackview_data_path("lc", :origin_sort_key => origin_sort_key),
+                :search_type => "loc_sort_order"
+            }
+        })
+    %>
+~~~
+
+If you pass an :origin_sort_key that doesn't actually exist in the database,
+the StackviewDataController will still put the user into the stacks at the closest
+point to that theoretical call number. 
+
+** SET THE URL (todo)
+
+#### What's it doing then?
+
+To use the current stackview API (as far as what it fetches from it's back-end), in
+a flexible and high-performance way, we do something a bit odd. 
+
+The URL fixes the controller to have an 'origin' you specify. Stackview, in "search_type: loc_sort_order" (stackview's terminology) will then send it negative and positive offsets as the user browses -- eg asking
+for items 10 to 20, or -25 to -35. The controller will use SQL `OFFSET` to page forwards and backwards
+around the origin.  This ends up pretty performant, although it is odd. 
+
+The Stackview `loc_sort_order` mode is under-documented on stackview's site, but it's meant
+for 'infinite' scrolling both forwards and back around an origin. Stackview assumes
+you're initialize it to the actual i-index `id` where you want to start; but we set
+a "logical" id starting point of 0, and encode our actual origin in the URL instead. Then
+we can consider stackview's indexes to actually be offsets from our origin. 
+
+Weird, but it works, without major changes to the stackview JS code itself.
 
 
-### The Browser Template
+#### Don't want to use the stackview_call_numbers table?
+
+It is kind of hacky. Do you have another source for your call numbers? Do you want
+to try to get them via Solr directly using the ndushay/stanford hack? 
+
+The code extracts out the actual fetch logic into a [RailsStackview::DbWindowFetcher](./app/fetch_adapters/rails_stackview/db_window_fetcher.rb) adapter.
+We intend to let you replace it with your own adapter, that takes the HTTP params sent by
+stackview itself, and returns a list of hashes to be given back to it. 
+
+This architecture isn't neccesarily fully fleshed out, some parts of RailsStackview
+may be hard-coded in unpleasant ways, but the beginnings are there. 
+
+
+### Front-end Support: The Browser Template
 
 * Needs NO footer to size stackview 'full viewport' properly. 
 * Can accomodate header, but best to keep it small. 
 * Best with no margin or padding provided by layout either. 
 * Needs routing for back-end support, more routing for partials (stackview_browser_item_path)
 * replaceState assumes origin_sort_key in query, and sort_key in stackview data dict. 
+* trigger event on item load?
 
 ### Custom format plain
 
@@ -124,47 +231,3 @@ the currently vendored assets is included at
 There is a script for refreshing these assets in rails_stackview source,
 see [./vendor/assets/README.md](./vendor/assets/README.md).
 
-### Under-documented stackview loc_sort_order fetch mode
-
-The original [stackview](https://github.com/harvard-lil/stackview) has a feature
-that is currently undocumented over there, to send search params to a back-end
-provider using a different method meant for taking a 'window' over very large
-search results. 
-
-Ordinarily, stackview assumes it's starting at the bottom of a list, and pages
-through it by sending `start` and `limit` params to the back-end script. 
-
-The alternate search mode is triggered by sending `'search_type': 'loc_sort_order'`
-to the stackview init.  Contrary to the implications of the name, there's
-really nothing specific to LC call numbers about the mode triggered, although
-lc call numbers are the original use case.
-
-When you set `'search_type': 'loc_sort_order'`, stackview assumes you will
-be paging through a very large list of results; starting in the middle; but the
-results can still be addressed by whole number indeces. 
-
-When you set `'search_type': 'loc_sort_order'`, you should also send stackview
-init an `id` key, with a whole number that is the 'starting point' for the view,
-the initial view will be centered around that point in the list. 
-
-stackview, instead of sending start and limit, will send a window of results desired
-in the `query` param, looking like eg: `[100 TO 110]`.  (except URI encoded of course in
-actual HTTP request). 
-
-The back-end is expected to send back records 100 to 110 _inclusive of both ends_.
-(Yes, this does mean that stackview is requesting 11 items at a time when your
-configured limit is 10, perhaps that's a bug, but it's not really a problem) 
-
-If the back-end sends back a "start: -1", then stackview assumes it's at the
-end of the list -- -1 indicates 'end of list' on _either_ end, top or bottom. 
-
-Endpoints of the window _can_ go negative.  If you start at id:0, stackview
-might begin by requesting `[-5 TO 5]` for instance. This may have been accidental
-on stackviews part, but we take advantage of it. 
-
-The standard db-backed fetcher will always set the id to 0, but additionally
-pass along an origin sortkey.  Future offsets are taken to be relative to
-this sort key.  `[-10 to -1]` would mean the 10 items _before_ the origin sortkey. 
-This allows us to avoid expensive 'deep paging' with offsets in the 6 digits or more --
-although it's not perfect, if the user pages a _lot_, you can still get to large
-expensive offsets. 

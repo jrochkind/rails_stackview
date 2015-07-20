@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.org/jrochkind/rails_stackview.svg?branch=master)](https://travis-ci.org/jrochkind/rails_stackview)
-
-[![Gem Version](https://badge.fury.io/rb/rails_stackview.svg)](http://badge.fury.io/rb/rails_stackview)
+[![Build Status](https://travis-ci.org/jrochkind/rails_stackview.svg?branch=master)](https://travis-ci.org/jrochkind/rails_stackview) [![Gem Version](https://badge.fury.io/rb/rails_stackview.svg)](http://badge.fury.io/rb/rails_stackview)
 
 # RailsStackview
 

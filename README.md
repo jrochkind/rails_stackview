@@ -2,8 +2,6 @@
 
 # RailsStackview
 
-IN PROGRESS UNDER DEVELOPMENT NOT USABLE YET
-
 This is not an out of the box solution, integrating it into your app will require some development.
 
 The hardest part, for call-number browse, is typically arranging your call numbers somewhere

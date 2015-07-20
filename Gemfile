@@ -16,3 +16,13 @@ gemspec
 gem 'byebug', group: :development, :platforms => [:mri_20, :mri_21, :mri_22]
 gem 'sass-rails', "~> 5" # specify version beyond what's in gemspec
 gem 'jquery-rails'
+
+# SQLite for running tests only. 
+platforms :ruby do
+  gem 'sqlite3'
+end
+
+platforms :jruby do
+  gem 'jruby-openssl'
+  gem 'activerecord-jdbcsqlite3-adapter'
+end

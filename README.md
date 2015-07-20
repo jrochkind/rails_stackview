@@ -171,7 +171,23 @@ If you pass an :origin_sort_key that doesn't actually exist in the database,
 the StackviewDataController will still put the user into the stacks at the closest
 point to that theoretical call number. 
 
-** SET THE URL (todo)
+#### Set the link URL
+
+To set the `link` property on the JS objects passed to stackview, which will be used
+as the `href` on stackview item hyperlinks, set a lambda/proc as configuration, perhaps
+in an initializer. The proc gets the already constructed stackview hash as a parameter,
+and will be executed in the context of the controller so you can use controller
+methods, such as Rails route helpers. 
+
+      StackviewDataController.set_config_for_type("default", {
+        :link => lambda do |hash|
+          catalog_path(hash["system_id"])
+        end
+      })
+
+Above is similar to the default, which should work for at least some versions
+of Blacklight by default. 
+
 
 #### What's it doing then?
 
@@ -215,7 +231,17 @@ may be hard-coded in unpleasant ways, but the beginnings are there.
 
 ### Custom format plain
 
-* Just include all RailsStackview assets instead of picking and choosing. 
+`rails_stackview` adds it's own custom "plain" format, which we use for items
+that are neither books, CDs, DVDs, etc. Or where we can't be sure what format they are. 
+
+The design isn't too sophisticated, but is meant to look kind of like a plain
+box with a printed label. It does implement stackview heatmap coloring. 
+
+If you have included `rails_stackview` CSS and JS, the plain format is available.
+
+Set format format property to `plain` to trigger. Or, you can set
+additional format description after a colon: `plain:LP`, or `plain:Whatever we want`,
+and the additional format description will be included on the label. 
 
 ## Development
 

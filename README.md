@@ -1,8 +1,10 @@
+[![Build Status](https://travis-ci.org/jrochkind/rails_stackview.svg?branch=master)](https://travis-ci.org/jrochkind/rails_stackview)
+
+[![Gem Version](https://badge.fury.io/rb/rails_stackview.svg)](http://badge.fury.io/rb/rails_stackview)
+
 # RailsStackview
 
 IN PROGRESS UNDER DEVELOPMENT NOT USABLE YET
-
-**Tools** for integrating the Harvard Innovation Lab [stackview](https://github.com/harvard-lil/stackview) Javascript into a Rails app. 
 
 This is not an out of the box solution, integrating it into your app will require some development.
 

@@ -102,9 +102,9 @@ with:
 
 It is up to you to fill this table with call number data. If you
 use [traject](https://github.com/traject/traject) to index
-MARC to Solr, you can look at this example of how I handle
+MARC to Solr, you can look at [this example of how I handle
 creating the stackview_call_numbers table at the same time
-I do my Solr indexing. (TODO)
+I do my Solr indexing](./docs/traject-indexing.example.rb)
 
 Here are the elements of the `stackview_call_numbers` table:
 
@@ -148,7 +148,8 @@ When you initialize a stackview UI element, you have to tell it what item to sta
 a known item, is simply to look it up from the existing `stackview_call_numbers` table:
 
 ~~~ruby
-    origin_sort_key = StackviewCallNumber.where(:system_id => document.id).order("created_at").pluck(:sort_key).first # may be nil if no such system_id recorded
+# may be nil if no such system_id recorded
+origin_sort_key = StackviewCallNumber.where(:system_id => document.id).order("created_at").pluck(:sort_key).first 
 ~~~
 
 Now you can initialize a stackview UI element, using the RailsStackview feature

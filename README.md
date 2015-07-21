@@ -249,6 +249,9 @@ If you want a click on a stack item to load information in the right panel, then
 to define your own Rails route with a `stackview_browser_item`, which returns partial
 HTML that should be loaded (via AJAX) in the item detail panel on a click. 
 
+We have [an example of how I implemented the `stackview_browser_item` action in a 
+Blacklight app](./docs/stackview_browser_item.example.md). 
+
 After an item is loaded by the browser JS, a custom `stackview-item-load` JS event is
 triggered, with the item panel div as the target. 
 

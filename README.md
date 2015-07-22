@@ -2,7 +2,7 @@
 
 # RailsStackview
 
-Packages the assets from teh Harvard Library Innovation Lab's [stackview](https://github.com/harvard-lil/stackview) for the Rails asset pipeline, and provides additional optional integration support with a controller and a template. 
+Packages the assets from the Harvard Library Innovation Lab's [stackview](https://github.com/harvard-lil/stackview) for the Rails asset pipeline, and provides additional optional integration support with a controller and a template. 
 
 This is not an out of the box solution, integrating it into your app will require some development.
 
